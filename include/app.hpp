@@ -27,15 +27,9 @@ private:
     void createCommandBuffer();
     void drawFrame();
     void createSyncObjects();
+    void createFrameBuffers();
+    void createRenderPass();
     void recordCommandBuffer(uint32_t imageIndex);
-    void transition_image_layout(
-        uint32_t imageIndex,
-        vk::ImageLayout old_layout,
-        vk::ImageLayout new_layout,
-        vk::AccessFlags2 src_access_mask,
-        vk::AccessFlags2 dst_access_mask,
-        vk::PipelineStageFlags2 src_stage_mask,
-        vk::PipelineStageFlags2 dst_stage_mask);
     static std::vector<char> readFile(const std::string &filename);
     std::vector<const char *> getRequiredInstanceExtensions();
     [[nodiscard]] vk::raii::ShaderModule createShaderModule(const std::vector<char> &code) const;
@@ -53,6 +47,8 @@ private:
     vk::raii::PhysicalDevice physicalDevice = nullptr;
     vk::raii::Device device = nullptr;
     vk::raii::Queue queue = nullptr;
+    vk::raii::RenderPass renderPass = nullptr;
+    std::vector<vk::raii::Framebuffer> swapChainFramebuffers;
     vk::raii::SurfaceKHR surface = nullptr;
     vk::raii::SwapchainKHR swapChain = nullptr;
     std::vector<vk::Image> swapChainImages;

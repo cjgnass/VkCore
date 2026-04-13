@@ -62,6 +62,8 @@ void App::initVulkan()
     createLogicalDevice();
     createSwapChain();
     createImageViews();
+    createRenderPass();
+    createFrameBuffers();
     createGraphicsPipeline();
     createCommandPool();
     createCommandBuffer();
@@ -153,7 +155,7 @@ void App::createInstance()
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName = "No Engine";
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.apiVersion = vk::ApiVersion14;
+    appInfo.apiVersion = vk::ApiVersion12;
     std::vector<char const *> requiredLayers;
     if (enableValidationLayers)
     {
@@ -239,16 +241,9 @@ bool App::isDeviceSuitable(vk::raii::PhysicalDevice const &physicalDevice)
     // Check if the physicalDevice supports the required features
     auto features = physicalDevice.template getFeatures2<vk::PhysicalDeviceFeatures2,
                                                          vk::PhysicalDeviceVulkan11Features,
-                                                         vk::PhysicalDeviceVulkan13Features,
                                                          vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT>();
     bool supportsRequiredFeatures = features.template get<vk::PhysicalDeviceVulkan11Features>().shaderDrawParameters &&
-                                    // features.template get<vk::PhysicalDeviceVulkan13Features>().dynamicRendering &&
-                                    // features.template get<vk::PhysicalDeviceVulkan13Features>().synchronization2 &&
                                     features.template get<vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT>().extendedDynamicState;
-    // bool f1 = features.template get<vk::PhysicalDeviceVulkan11Features>().shaderDrawParameters;
-    // bool f2 = features.template get<vk::PhysicalDeviceVulkan13Features>().dynamicRendering;
-    // bool f3 = features.template get<vk::PhysicalDeviceVulkan13Features>().synchronization2;
-    // bool f4 = features.template get<vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT>().extendedDynamicState;
 
     // Return true if the physicalDevice meets all the criteria
     return supportsVulkan1_0 && supportsGraphics && supportsAllRequiredExtensions && supportsRequiredFeatures;
@@ -261,10 +256,10 @@ void App::createLogicalDevice()
                                                             { return (qfp.queueFlags & vk::QueueFlagBits::eGraphics) != static_cast<vk::QueueFlags>(0); });
     assert(graphicsQueueFamilyProperty != queueFamilyProperties.end() && "No graphics queue family found!");
     auto graphicsIndex = static_cast<uint32_t>(std::distance(queueFamilyProperties.begin(), graphicsQueueFamilyProperty));
+    queueIndex = graphicsIndex;
     vk::PhysicalDeviceFeatures2 vkPhysicalDeviceFeatures2{};
     vk::PhysicalDeviceVulkan11Features vkPhysicalDeviceVulkan11Features{};
-    // vkPhysicalDeviceVulkan13Features.dynamicRendering = true;
-    vkPhysicalDeviceVulkan11Features.shaderDrawParameters = VK_TRUE;
+    vkPhysicalDeviceVulkan11Features.shaderDrawParameters = true;
     vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT vkPhysicalDeviceExtendedDynamicStateFeaturesEXT{};
     vkPhysicalDeviceExtendedDynamicStateFeaturesEXT.extendedDynamicState = true;
     vk::StructureChain<vk::PhysicalDeviceFeatures2, vk::PhysicalDeviceVulkan11Features, vk::PhysicalDeviceExtendedDynamicStateFeaturesEXT> featureChain{vkPhysicalDeviceFeatures2, vkPhysicalDeviceVulkan11Features, vkPhysicalDeviceExtendedDynamicStateFeaturesEXT};
@@ -397,6 +392,57 @@ std::vector<char> App::readFile(const std::string &filename)
     return buffer;
 }
 
+void App::createFrameBuffers()
+{
+    for (auto &view : swapChainImageViews)
+    {
+        vk::ImageView attachments[] = {*view};
+        vk::FramebufferCreateInfo fbInfo{};
+        fbInfo.renderPass = *renderPass;
+        fbInfo.attachmentCount = 1;
+        fbInfo.pAttachments = attachments;
+        fbInfo.width = swapChainExtent.width;
+        fbInfo.height = swapChainExtent.height;
+        fbInfo.layers = 1;
+        swapChainFramebuffers.emplace_back(device, fbInfo);
+    }
+}
+
+void App::createRenderPass()
+{
+    vk::AttachmentDescription colorAttachment{};
+    colorAttachment.format = swapChainSurfaceFormat.format;
+    colorAttachment.samples = vk::SampleCountFlagBits::e1;
+    colorAttachment.loadOp = vk::AttachmentLoadOp::eClear;
+    colorAttachment.storeOp = vk::AttachmentStoreOp::eStore;
+    colorAttachment.stencilLoadOp = vk::AttachmentLoadOp::eDontCare;
+    colorAttachment.stencilStoreOp = vk::AttachmentStoreOp::eDontCare;
+    colorAttachment.initialLayout = vk::ImageLayout::eUndefined;
+    colorAttachment.finalLayout = vk::ImageLayout::ePresentSrcKHR;
+
+    vk::AttachmentReference colorRef{0, vk::ImageLayout::eColorAttachmentOptimal};
+    vk::SubpassDescription subpass{};
+    subpass.pipelineBindPoint = vk::PipelineBindPoint::eGraphics;
+    subpass.colorAttachmentCount = 1;
+    subpass.pColorAttachments = &colorRef;
+
+    vk::SubpassDependency dep{};
+    dep.srcSubpass = VK_SUBPASS_EXTERNAL;
+    dep.dstSubpass = 0;
+    dep.srcStageMask = vk::PipelineStageFlagBits::eColorAttachmentOutput;
+    dep.dstStageMask = vk::PipelineStageFlagBits::eColorAttachmentOutput;
+    dep.srcAccessMask = {};
+    dep.dstAccessMask = vk::AccessFlagBits::eColorAttachmentWrite;
+
+    vk::RenderPassCreateInfo info{};
+    info.attachmentCount = 1;
+    info.pAttachments = &colorAttachment;
+    info.subpassCount = 1;
+    info.pSubpasses = &subpass;
+    info.dependencyCount = 1;
+    info.pDependencies = &dep;
+    renderPass = vk::raii::RenderPass(device, info);
+}
 void App::createGraphicsPipeline()
 {
     auto shaderCode = readFile("../shaders/slang.spv");
@@ -457,15 +503,10 @@ void App::createGraphicsPipeline()
     vkGraphicsPipelineCreateInfo.pColorBlendState = &colorBlending;
     vkGraphicsPipelineCreateInfo.pDynamicState = &dynamicState;
     vkGraphicsPipelineCreateInfo.layout = pipelineLayout;
-    vkGraphicsPipelineCreateInfo.renderPass = nullptr;
-    vk::PipelineRenderingCreateInfo vkPipelineRenderingCreateInfo{};
-    vkPipelineRenderingCreateInfo.colorAttachmentCount = 1;
-    vkPipelineRenderingCreateInfo.pColorAttachmentFormats = &swapChainSurfaceFormat.format;
-    vk::StructureChain<vk::GraphicsPipelineCreateInfo, vk::PipelineRenderingCreateInfo> pipelineCreateInfoChain = {
-        vkGraphicsPipelineCreateInfo,
-        vkPipelineRenderingCreateInfo};
+    vkGraphicsPipelineCreateInfo.renderPass = *renderPass;
+    vkGraphicsPipelineCreateInfo.subpass = 0;
 
-    graphicsPipeline = vk::raii::Pipeline(device, nullptr, pipelineCreateInfoChain.get<vk::GraphicsPipelineCreateInfo>());
+    graphicsPipeline = vk::raii::Pipeline(device, nullptr, vkGraphicsPipelineCreateInfo);
 }
 
 vk::raii::ShaderModule App::createShaderModule(const std::vector<char> &code) const
@@ -498,80 +539,22 @@ void App::recordCommandBuffer(uint32_t imageIndex)
 {
     commandBuffer.begin({});
 
-    // Before starting rendering, transition the swapchain image to vk::ImageLayout::eColorAttachmentOptimal
-    transition_image_layout(
-        imageIndex,
-        vk::ImageLayout::eUndefined,
-        vk::ImageLayout::eColorAttachmentOptimal,
-        {},                                                 // srcAccessMask (no need to wait for previous operations)
-        vk::AccessFlagBits2::eColorAttachmentWrite,         // dstAccessMask
-        vk::PipelineStageFlagBits2::eColorAttachmentOutput, // srcStage
-        vk::PipelineStageFlagBits2::eColorAttachmentOutput  // dstStage
-    );
     vk::ClearValue clearColor = vk::ClearColorValue(0.0f, 0.0f, 0.0f, 1.0f);
-    vk::RenderingAttachmentInfo attachmentInfo{};
-    attachmentInfo.imageView = swapChainImageViews[imageIndex];
-    attachmentInfo.imageLayout = vk::ImageLayout::eColorAttachmentOptimal;
-    attachmentInfo.loadOp = vk::AttachmentLoadOp::eClear;
-    attachmentInfo.storeOp = vk::AttachmentStoreOp::eStore;
-    attachmentInfo.clearValue = clearColor;
-    vk::RenderingInfo renderingInfo = {};
-    renderingInfo.renderArea = {.offset = {0, 0}, .extent = swapChainExtent};
-    renderingInfo.layerCount = 1;
-    renderingInfo.colorAttachmentCount = 1;
-    renderingInfo.pColorAttachments = &attachmentInfo;
+    vk::RenderPassBeginInfo renderPassBeginInfo{};
+    renderPassBeginInfo.renderPass = *renderPass;
+    renderPassBeginInfo.framebuffer = *swapChainFramebuffers[imageIndex];
+    renderPassBeginInfo.renderArea = vk::Rect2D(vk::Offset2D(0, 0), swapChainExtent);
+    renderPassBeginInfo.clearValueCount = 1;
+    renderPassBeginInfo.pClearValues = &clearColor;
 
-    commandBuffer.beginRendering(renderingInfo);
+    commandBuffer.beginRenderPass(renderPassBeginInfo, vk::SubpassContents::eInline);
     commandBuffer.bindPipeline(vk::PipelineBindPoint::eGraphics, *graphicsPipeline);
     commandBuffer.setViewport(0, vk::Viewport(0.0f, 0.0f, static_cast<float>(swapChainExtent.width), static_cast<float>(swapChainExtent.height), 0.0f, 1.0f));
     commandBuffer.setScissor(0, vk::Rect2D(vk::Offset2D(0, 0), swapChainExtent));
     commandBuffer.draw(3, 1, 0, 0);
-    commandBuffer.endRendering();
+    commandBuffer.endRenderPass();
 
-    // After rendering, transition the swapchain image to vk::ImageLayout::ePresentSrcKHR
-    transition_image_layout(
-        imageIndex,
-        vk::ImageLayout::eColorAttachmentOptimal,
-        vk::ImageLayout::ePresentSrcKHR,
-        vk::AccessFlagBits2::eColorAttachmentWrite,         // srcAccessMask
-        {},                                                 // dstAccessMask
-        vk::PipelineStageFlagBits2::eColorAttachmentOutput, // srcStage
-        vk::PipelineStageFlagBits2::eBottomOfPipe           // dstStage
-    );
     commandBuffer.end();
-}
-
-void App::transition_image_layout(
-    uint32_t imageIndex,
-    vk::ImageLayout old_layout,
-    vk::ImageLayout new_layout,
-    vk::AccessFlags2 src_access_mask,
-    vk::AccessFlags2 dst_access_mask,
-    vk::PipelineStageFlags2 src_stage_mask,
-    vk::PipelineStageFlags2 dst_stage_mask)
-{
-    vk::ImageMemoryBarrier2 barrier = {};
-    barrier.srcStageMask = src_stage_mask;
-    barrier.srcAccessMask = src_access_mask;
-    barrier.dstStageMask = dst_stage_mask;
-    barrier.dstAccessMask = dst_access_mask;
-    barrier.oldLayout = old_layout;
-    barrier.newLayout = new_layout;
-    barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-    barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-    barrier.image = swapChainImages[imageIndex];
-    vk::ImageSubresourceRange imageSubresourceRange{};
-    imageSubresourceRange.aspectMask = vk::ImageAspectFlagBits::eColor;
-    imageSubresourceRange.baseMipLevel = 0;
-    imageSubresourceRange.levelCount = 1;
-    imageSubresourceRange.baseArrayLayer = 0;
-    imageSubresourceRange.layerCount = 1;
-    barrier.subresourceRange = imageSubresourceRange;
-    vk::DependencyInfo dependencyInfo{};
-    dependencyInfo.dependencyFlags = {};
-    dependencyInfo.imageMemoryBarrierCount = 1;
-    dependencyInfo.pImageMemoryBarriers = &barrier;
-    commandBuffer.pipelineBarrier2(dependencyInfo);
 }
 
 void App::createSyncObjects()
