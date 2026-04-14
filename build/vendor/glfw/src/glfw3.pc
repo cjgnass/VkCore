@@ -1,7 +1,7 @@
-prefix=C:/Program Files (x86)/Project
+prefix=C:/Program Files (x86)/VkCore
 exec_prefix=${prefix}
-includedir=C:/Program Files (x86)/Project/include
-libdir=C:/Program Files (x86)/Project/lib
+includedir=C:/Program Files (x86)/VkCore/include
+libdir=C:/Program Files (x86)/VkCore/lib
 
 Name: GLFW
 Description: A multi-platform library for OpenGL, window and input

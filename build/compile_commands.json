@@ -1,140 +1,140 @@
 [
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -IC:\\Users\\cjgnass\\Repos\\VkCore\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -external:IC:\\VulkanSDK\\1.4.341.1\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\main.dir\\main.cpp.obj /FdCMakeFiles\\main.dir\\ /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\main.cpp",
-  "file": "C:/Users/cjgnass/Repos/VkCore/main.cpp",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/CMakeFiles/main.dir/main.cpp.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -IC:\\Users\\cjgnass\\repos\\VkCore\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -external:IC:\\VulkanSDK\\1.4.341.1\\Include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\main.dir\\main.cpp.obj /FdCMakeFiles\\main.dir\\ /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\main.cpp",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\main.cpp",
+  "output": "CMakeFiles\\main.dir\\main.cpp.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -IC:\\Users\\cjgnass\\Repos\\VkCore\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -external:IC:\\VulkanSDK\\1.4.341.1\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\main.dir\\app.cpp.obj /FdCMakeFiles\\main.dir\\ /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\app.cpp",
-  "file": "C:/Users/cjgnass/Repos/VkCore/app.cpp",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/CMakeFiles/main.dir/app.cpp.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -IC:\\Users\\cjgnass\\repos\\VkCore\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -external:IC:\\VulkanSDK\\1.4.341.1\\Include -external:W0 /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\main.dir\\app.cpp.obj /FdCMakeFiles\\main.dir\\ /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\app.cpp",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\app.cpp",
+  "output": "CMakeFiles\\main.dir\\app.cpp.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\context.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/context.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/context.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\context.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\context.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\context.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\init.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\init.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/init.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/init.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\init.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\init.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\init.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\init.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\input.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\input.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/input.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/input.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\input.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\input.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\input.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\input.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\monitor.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\monitor.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/monitor.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\monitor.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\monitor.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\monitor.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\monitor.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\platform.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\platform.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/platform.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/platform.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\platform.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\platform.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\platform.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\platform.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\vulkan.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\vulkan.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/vulkan.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\vulkan.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\vulkan.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\vulkan.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\vulkan.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\window.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\window.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/window.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/window.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\window.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\window.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\window.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\window.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\egl_context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\egl_context.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/egl_context.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\egl_context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\egl_context.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\egl_context.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\egl_context.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\osmesa_context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\osmesa_context.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/osmesa_context.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\osmesa_context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\osmesa_context.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\osmesa_context.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\osmesa_context.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_init.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\null_init.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/null_init.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_init.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_init.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_init.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_init.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_monitor.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\null_monitor.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/null_monitor.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_monitor.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_monitor.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_monitor.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_monitor.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_window.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\null_window.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/null_window.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_window.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_window.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_window.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_window.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_joystick.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\null_joystick.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/null_joystick.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_joystick.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_joystick.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\null_joystick.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\null_joystick.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_module.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\win32_module.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/win32_module.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_module.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_module.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_module.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_module.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_time.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\win32_time.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/win32_time.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_time.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_time.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_time.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_time.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_thread.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\win32_thread.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/win32_thread.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_thread.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_thread.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_thread.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_thread.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_init.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\win32_init.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/win32_init.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_init.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_init.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_init.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_init.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_joystick.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\win32_joystick.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/win32_joystick.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_joystick.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_joystick.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_joystick.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_joystick.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_monitor.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\win32_monitor.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/win32_monitor.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_monitor.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_monitor.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_monitor.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_monitor.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_window.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\win32_window.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/win32_window.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_window.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_window.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\win32_window.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\win32_window.c.obj"
 },
 {
-  "directory": "C:/Users/cjgnass/Repos/VkCore/build",
-  "command": "C:\\PROGRA~1\\MICROS~1\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\Repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\wgl_context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\Repos\\VkCore\\vendor\\glfw\\src\\wgl_context.c",
-  "file": "C:/Users/cjgnass/Repos/VkCore/vendor/glfw/src/wgl_context.c",
-  "output": "C:/Users/cjgnass/Repos/VkCore/build/vendor/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj"
+  "directory": "C:/Users/cjgnass/repos/VkCore/build",
+  "command": "C:\\PROGRA~1\\MICROS~3\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\include -IC:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src -IC:\\Users\\cjgnass\\repos\\VkCore\\build\\vendor\\glfw\\src /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3 /Fovendor\\glfw\\src\\CMakeFiles\\glfw.dir\\wgl_context.c.obj /Fdvendor\\glfw\\src\\CMakeFiles\\glfw.dir\\glfw.pdb /FS -c C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\wgl_context.c",
+  "file": "C:\\Users\\cjgnass\\repos\\VkCore\\vendor\\glfw\\src\\wgl_context.c",
+  "output": "vendor\\glfw\\src\\CMakeFiles\\glfw.dir\\wgl_context.c.obj"
 }
 ]
