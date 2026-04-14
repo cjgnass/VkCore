@@ -80,6 +80,12 @@ void App::mainLoop()
     device.waitIdle();
 }
 
+void App::cleanup()
+{
+    glfwDestroyWindow(window);
+    glfwTerminate();
+}
+
 void App::drawFrame()
 {
     auto fenceResult = device.waitForFences(*drawFence, vk::True, UINT64_MAX);
@@ -124,12 +130,6 @@ void App::drawFrame()
     default:
         break; // an unexpected result is returned!
     }
-}
-
-void App::cleanup()
-{
-    glfwDestroyWindow(window);
-    glfwTerminate();
 }
 
 void App::setupDebugMessenger()

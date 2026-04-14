@@ -15,20 +15,23 @@ private:
     void initVulkan();
     void mainLoop();
     void cleanup();
+
     void createInstance();
     void setupDebugMessenger();
+    void createSurface();
     void pickPhysicalDevice();
     void createLogicalDevice();
-    void createSurface();
     void createSwapChain();
     void createImageViews();
+    void createRenderPass();
+    void createFrameBuffers();
     void createGraphicsPipeline();
     void createCommandPool();
     void createCommandBuffer();
-    void drawFrame();
     void createSyncObjects();
-    void createFrameBuffers();
-    void createRenderPass();
+
+    void drawFrame();
+
     void recordCommandBuffer(uint32_t imageIndex);
     static std::vector<char> readFile(const std::string &filename);
     std::vector<const char *> getRequiredInstanceExtensions();
@@ -39,7 +42,7 @@ private:
     static uint32_t chooseSwapMinImageCount(vk::SurfaceCapabilitiesKHR const &surfaceCapabilities);
     static vk::SurfaceFormatKHR chooseSwapSurfaceFormat(std::vector<vk::SurfaceFormatKHR> const &availableFormats);
     static vk::PresentModeKHR chooseSwapPresentMode(std::vector<vk::PresentModeKHR> const &availablePresentModes);
-    std::vector<const char *> requiredDeviceExtension = {vk::KHRSwapchainExtensionName};
+
     GLFWwindow *window;
     vk::raii::Context context;
     vk::raii::Instance instance = nullptr;
@@ -63,4 +66,5 @@ private:
     vk::raii::Semaphore presentCompleteSemaphore = nullptr;
     vk::raii::Semaphore renderFinishedSemaphore = nullptr;
     vk::raii::Fence drawFence = nullptr;
+    std::vector<const char *> requiredDeviceExtension = {vk::KHRSwapchainExtensionName};
 };
