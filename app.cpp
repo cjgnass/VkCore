@@ -4,6 +4,8 @@
 #include <iostream>
 #include <map>
 #include <fstream>
+#include <chrono>
+#include <cstring>
 
 constexpr uint32_t WIDTH = 1280;
 constexpr uint32_t HEIGHT = 720;
@@ -64,8 +66,12 @@ void App::initVulkan()
     createImageViews();
     createRenderPass();
     createFrameBuffers();
+    createDescriptorSetLayout();
     createGraphicsPipeline();
     createCommandPool();
+    createUniformBuffer();
+    createDescriptorPool();
+    createDescriptorSet();
     createCommandBuffer();
     createSyncObjects();
 }
@@ -97,6 +103,7 @@ void App::drawFrame()
 
     auto [result, imageIndex] = swapChain.acquireNextImage(UINT64_MAX, *presentCompleteSemaphore, nullptr);
 
+    updateUniformBuffer();
     recordCommandBuffer(imageIndex);
 
     queue.waitIdle(); // NOTE: for simplicity, wait for the queue to be idle before starting the frame
@@ -445,7 +452,7 @@ void App::createRenderPass()
 }
 void App::createGraphicsPipeline()
 {
-    auto shaderCode = readFile("../shaders/slang.spv");
+    auto shaderCode = readFile("./shaders/slang.spv");
     vk::raii::ShaderModule shaderModule = createShaderModule(shaderCode);
     vk::PipelineShaderStageCreateInfo vertShaderStageInfo{};
     vertShaderStageInfo.stage = vk::ShaderStageFlagBits::eVertex;
@@ -489,7 +496,9 @@ void App::createGraphicsPipeline()
     dynamicState.dynamicStateCount = static_cast<uint32_t>(dynamicStates.size());
     dynamicState.pDynamicStates = dynamicStates.data();
     vk::PipelineLayoutCreateInfo pipelineLayoutInfo{};
-    pipelineLayoutInfo.setLayoutCount = 0;
+    vk::DescriptorSetLayout setLayouts[] = {*descriptorSetLayout};
+    pipelineLayoutInfo.setLayoutCount = 1;
+    pipelineLayoutInfo.pSetLayouts = setLayouts;
     pipelineLayoutInfo.pushConstantRangeCount = 0;
     pipelineLayout = vk::raii::PipelineLayout(device, pipelineLayoutInfo);
     vk::GraphicsPipelineCreateInfo vkGraphicsPipelineCreateInfo{};
@@ -551,6 +560,7 @@ void App::recordCommandBuffer(uint32_t imageIndex)
     commandBuffer.bindPipeline(vk::PipelineBindPoint::eGraphics, *graphicsPipeline);
     commandBuffer.setViewport(0, vk::Viewport(0.0f, 0.0f, static_cast<float>(swapChainExtent.width), static_cast<float>(swapChainExtent.height), 0.0f, 1.0f));
     commandBuffer.setScissor(0, vk::Rect2D(vk::Offset2D(0, 0), swapChainExtent));
+    commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics, *pipelineLayout, 0, *descriptorSet, nullptr);
     commandBuffer.draw(3, 1, 0, 0);
     commandBuffer.endRenderPass();
 
@@ -564,4 +574,108 @@ void App::createSyncObjects()
     vk::FenceCreateInfo vkFenceCreateInfo{};
     vkFenceCreateInfo.flags = vk::FenceCreateFlagBits::eSignaled;
     drawFence = vk::raii::Fence(device, vkFenceCreateInfo);
+}
+
+void App::createDescriptorSetLayout()
+{
+    vk::DescriptorSetLayoutBinding uboLayoutBinding{};
+    uboLayoutBinding.binding = 0;
+    uboLayoutBinding.descriptorType = vk::DescriptorType::eUniformBuffer;
+    uboLayoutBinding.descriptorCount = 1;
+    uboLayoutBinding.stageFlags = vk::ShaderStageFlagBits::eVertex;
+
+    vk::DescriptorSetLayoutCreateInfo layoutInfo{};
+    layoutInfo.bindingCount = 1;
+    layoutInfo.pBindings = &uboLayoutBinding;
+    descriptorSetLayout = vk::raii::DescriptorSetLayout(device, layoutInfo);
+}
+
+uint32_t App::findMemoryType(uint32_t typeFilter, vk::MemoryPropertyFlags properties) const
+{
+    auto memProperties = physicalDevice.getMemoryProperties();
+    for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i)
+    {
+        if ((typeFilter & (1u << i)) &&
+            (memProperties.memoryTypes[i].propertyFlags & properties) == properties)
+        {
+            return i;
+        }
+    }
+    throw std::runtime_error("failed to find suitable memory type!");
+}
+
+void App::createBuffer(vk::DeviceSize size, vk::BufferUsageFlags usage, vk::MemoryPropertyFlags properties,
+                       vk::raii::Buffer &buffer, vk::raii::DeviceMemory &bufferMemory)
+{
+    vk::BufferCreateInfo bufferInfo{};
+    bufferInfo.size = size;
+    bufferInfo.usage = usage;
+    bufferInfo.sharingMode = vk::SharingMode::eExclusive;
+    buffer = vk::raii::Buffer(device, bufferInfo);
+
+    vk::MemoryRequirements memRequirements = buffer.getMemoryRequirements();
+    vk::MemoryAllocateInfo allocInfo{};
+    allocInfo.allocationSize = memRequirements.size;
+    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
+    bufferMemory = vk::raii::DeviceMemory(device, allocInfo);
+
+    buffer.bindMemory(*bufferMemory, 0);
+}
+
+void App::createUniformBuffer()
+{
+    vk::DeviceSize bufferSize = sizeof(UniformBufferObject);
+    createBuffer(bufferSize,
+                 vk::BufferUsageFlagBits::eUniformBuffer,
+                 vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent,
+                 uniformBuffer, uniformBufferMemory);
+    uniformBufferMapped = uniformBufferMemory.mapMemory(0, bufferSize);
+}
+
+void App::createDescriptorPool()
+{
+    vk::DescriptorPoolSize poolSize{};
+    poolSize.type = vk::DescriptorType::eUniformBuffer;
+    poolSize.descriptorCount = 1;
+
+    vk::DescriptorPoolCreateInfo poolInfo{};
+    poolInfo.flags = vk::DescriptorPoolCreateFlagBits::eFreeDescriptorSet;
+    poolInfo.poolSizeCount = 1;
+    poolInfo.pPoolSizes = &poolSize;
+    poolInfo.maxSets = 1;
+    descriptorPool = vk::raii::DescriptorPool(device, poolInfo);
+}
+
+void App::createDescriptorSet()
+{
+    vk::DescriptorSetLayout layouts[] = {*descriptorSetLayout};
+    vk::DescriptorSetAllocateInfo allocInfo{};
+    allocInfo.descriptorPool = *descriptorPool;
+    allocInfo.descriptorSetCount = 1;
+    allocInfo.pSetLayouts = layouts;
+    descriptorSet = std::move(vk::raii::DescriptorSets(device, allocInfo).front());
+
+    vk::DescriptorBufferInfo bufferInfo{};
+    bufferInfo.buffer = *uniformBuffer;
+    bufferInfo.offset = 0;
+    bufferInfo.range = sizeof(UniformBufferObject);
+
+    vk::WriteDescriptorSet descriptorWrite{};
+    descriptorWrite.dstSet = *descriptorSet;
+    descriptorWrite.dstBinding = 0;
+    descriptorWrite.dstArrayElement = 0;
+    descriptorWrite.descriptorType = vk::DescriptorType::eUniformBuffer;
+    descriptorWrite.descriptorCount = 1;
+    descriptorWrite.pBufferInfo = &bufferInfo;
+    device.updateDescriptorSets(descriptorWrite, nullptr);
+}
+
+void App::updateUniformBuffer()
+{
+    UniformBufferObject ubo{};
+    ubo.model = glm::mat4(1.0f);
+    ubo.view = glm::mat4(1.0f);
+    ubo.proj = glm::mat4(1.0f);
+
+    std::memcpy(uniformBufferMapped, &ubo, sizeof(ubo));
 }

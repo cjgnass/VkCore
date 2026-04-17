@@ -2,8 +2,21 @@
 #include "vulkan/vulkan.hpp"
 #include "GLFW/glfw3.h"
 #include "vulkan/vulkan_raii.hpp"
+
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include <vector>
 #include <string>
+
+struct UniformBufferObject
+{
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 proj;
+};
 
 class App
 {
@@ -25,14 +38,22 @@ private:
     void createImageViews();
     void createRenderPass();
     void createFrameBuffers();
+    void createDescriptorSetLayout();
     void createGraphicsPipeline();
     void createCommandPool();
+    void createUniformBuffer();
+    void createDescriptorPool();
+    void createDescriptorSet();
     void createCommandBuffer();
     void createSyncObjects();
 
     void drawFrame();
+    void updateUniformBuffer();
 
     void recordCommandBuffer(uint32_t imageIndex);
+    void createBuffer(vk::DeviceSize size, vk::BufferUsageFlags usage, vk::MemoryPropertyFlags properties,
+                      vk::raii::Buffer &buffer, vk::raii::DeviceMemory &bufferMemory);
+    uint32_t findMemoryType(uint32_t typeFilter, vk::MemoryPropertyFlags properties) const;
     static std::vector<char> readFile(const std::string &filename);
     std::vector<const char *> getRequiredInstanceExtensions();
     [[nodiscard]] vk::raii::ShaderModule createShaderModule(const std::vector<char> &code) const;
@@ -58,9 +79,15 @@ private:
     vk::SurfaceFormatKHR swapChainSurfaceFormat;
     vk::Extent2D swapChainExtent;
     std::vector<vk::raii::ImageView> swapChainImageViews;
+    vk::raii::DescriptorSetLayout descriptorSetLayout = nullptr;
     vk::raii::PipelineLayout pipelineLayout = nullptr;
     vk::raii::Pipeline graphicsPipeline = nullptr;
     vk::raii::CommandPool commandPool = nullptr;
+    vk::raii::Buffer uniformBuffer = nullptr;
+    vk::raii::DeviceMemory uniformBufferMemory = nullptr;
+    void *uniformBufferMapped = nullptr;
+    vk::raii::DescriptorPool descriptorPool = nullptr;
+    vk::raii::DescriptorSet descriptorSet = nullptr;
     vk::raii::CommandBuffer commandBuffer = nullptr;
     uint32_t queueIndex = ~0;
     vk::raii::Semaphore presentCompleteSemaphore = nullptr;
