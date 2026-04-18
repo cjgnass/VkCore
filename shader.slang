@@ -7,17 +7,10 @@ struct UBO {
 [[vk::binding(0, 0)]]
 ConstantBuffer<UBO> ubo;
 
-static float2 positions[3] = float2[](
-    float2(0.0, -0.5),
-    float2(0.5, 0.5),
-    float2(-0.5, 0.5)
-);
-
-static float3 colors[3] = float3[](
-    float3(1.0, 0.0, 0.0),
-    float3(0.0, 1.0, 0.0),
-    float3(0.0, 0.0, 1.0)
-);
+struct VertexInput {
+    [[vk::location(0)]] float3 position;
+    [[vk::location(1)]] float3 color;
+};
 
 struct VertexOutput {
     float3 color;
@@ -25,12 +18,12 @@ struct VertexOutput {
 };
 
 [shader("vertex")]
-VertexOutput vertMain(uint vid : SV_VertexID) {
+VertexOutput vertMain(VertexInput input) {
     VertexOutput output;
-    float4 worldPos = mul(float4(positions[vid], 0.0, 1.0), ubo.model);
+    float4 worldPos = mul(float4(input.position, 1.0), ubo.model);
     float4 viewPos  = mul(worldPos, ubo.view);
     output.sv_position = mul(viewPos, ubo.proj);
-    output.color = colors[vid];
+    output.color = input.color;
     return output;
 }
 

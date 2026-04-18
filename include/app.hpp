@@ -10,12 +10,44 @@
 
 #include <vector>
 #include <string>
+#include <array>
+#include <cstddef>
 
 struct UniformBufferObject
 {
     glm::mat4 model;
     glm::mat4 view;
     glm::mat4 proj;
+};
+
+struct Vertex
+{
+    glm::vec3 pos;
+    glm::vec3 color;
+
+    static vk::VertexInputBindingDescription getBindingDescription()
+    {
+        vk::VertexInputBindingDescription binding{};
+        binding.binding = 0;
+        binding.stride = sizeof(Vertex);
+        binding.inputRate = vk::VertexInputRate::eVertex;
+        return binding;
+    }
+
+    static std::array<vk::VertexInputAttributeDescription, 2> getAttributeDescriptions()
+    {
+        std::array<vk::VertexInputAttributeDescription, 2> attrs{};
+        attrs[0].binding = 0;
+        attrs[0].location = 0;
+        attrs[0].format = vk::Format::eR32G32B32Sfloat;
+        attrs[0].offset = offsetof(Vertex, pos);
+
+        attrs[1].binding = 0;
+        attrs[1].location = 1;
+        attrs[1].format = vk::Format::eR32G32B32Sfloat;
+        attrs[1].offset = offsetof(Vertex, color);
+        return attrs;
+    }
 };
 
 class App
@@ -36,11 +68,13 @@ private:
     void createLogicalDevice();
     void createSwapChain();
     void createImageViews();
+    void createDepthResources();
     void createRenderPass();
     void createFrameBuffers();
     void createDescriptorSetLayout();
     void createGraphicsPipeline();
     void createCommandPool();
+    void createVertexBuffer();
     void createUniformBuffer();
     void createDescriptorPool();
     void createDescriptorSet();
@@ -79,10 +113,15 @@ private:
     vk::SurfaceFormatKHR swapChainSurfaceFormat;
     vk::Extent2D swapChainExtent;
     std::vector<vk::raii::ImageView> swapChainImageViews;
+    vk::raii::Image depthImage = nullptr;
+    vk::raii::DeviceMemory depthImageMemory = nullptr;
+    vk::raii::ImageView depthImageView = nullptr;
     vk::raii::DescriptorSetLayout descriptorSetLayout = nullptr;
     vk::raii::PipelineLayout pipelineLayout = nullptr;
     vk::raii::Pipeline graphicsPipeline = nullptr;
     vk::raii::CommandPool commandPool = nullptr;
+    vk::raii::Buffer vertexBuffer = nullptr;
+    vk::raii::DeviceMemory vertexBufferMemory = nullptr;
     vk::raii::Buffer uniformBuffer = nullptr;
     vk::raii::DeviceMemory uniformBufferMemory = nullptr;
     void *uniformBufferMapped = nullptr;
