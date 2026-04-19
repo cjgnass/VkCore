@@ -596,7 +596,7 @@ void App::createGraphicsPipeline()
   rasterizer.depthClampEnable = vk::False;
   rasterizer.rasterizerDiscardEnable = vk::False;
   rasterizer.polygonMode = vk::PolygonMode::eFill;
-  rasterizer.cullMode = vk::CullModeFlagBits::eBack;
+  rasterizer.cullMode = vk::CullModeFlagBits::eNone;
   rasterizer.frontFace = vk::FrontFace::eCounterClockwise;
   rasterizer.depthBiasEnable = vk::False;
   rasterizer.lineWidth = 1.0f;
@@ -844,18 +844,18 @@ void App::updateUniformBuffer()
   UniformBufferObject ubo{};
 
   // ubo.model = glm::mat4(1.0f);
-  ubo.model = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                        0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+  ubo.model = glm::mat4(1.0f);
 
   // ubo.view = glm::mat4(1.0f);
-  ubo.view = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                       0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+  ubo.view = glm::lookAt(
+      glm::vec3(0.0f, 0.0f, -1.0f),
+      glm::vec3(0.0f, 0.0f, 0.0f),
+      glm::vec3(0.0f, 1.0f, 0.0f));
 
   // ubo.proj = glm::mat4(1.0f);
-  ubo.proj = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                       0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+  float aspect = static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);
+  ubo.proj = glm::perspective(glm::radians(45.0f), aspect, 0.01f, 100.0f);
 
   ubo.proj[1][1] *= -1;
-  ubo.proj[1][3] *= -1;
   std::memcpy(uniformBufferMapped, &ubo, sizeof(ubo));
 }

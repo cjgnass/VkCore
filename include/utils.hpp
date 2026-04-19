@@ -23,12 +23,12 @@ inline std::vector<Vertex> createQuad(float x, float y, float w, float h)
     float hd2 = h / 2;
 
     return {
-        {{x - wd2, y - hd2, 0.0f}, WHITE},
         {{x + wd2, y - hd2, 0.0f}, WHITE},
+        {{x - wd2, y - hd2, 0.0f}, WHITE},
         {{x - wd2, y + hd2, 0.0f}, WHITE},
 
-        {{x + wd2, y + hd2, 0.0f}, WHITE},
         {{x - wd2, y + hd2, 0.0f}, WHITE},
+        {{x + wd2, y + hd2, 0.0f}, WHITE},
         {{x + wd2, y - hd2, 0.0f}, WHITE},
     };
 }
