@@ -11,27 +11,9 @@
 constexpr uint32_t WIDTH = 1280;
 constexpr uint32_t HEIGHT = 720;
 
-std::vector<Vertex> s1 = {
-    {{.9f, .9f, 0.5f}, {1.0f, 0.0f, 0.0f}},
-    {{.8f, .8f, 0.5f}, {1.0f, 0.0f, 0.0f}},
-    {{.9f, .8f, 0.5f}, {1.0f, 0.0f, 0.0f}},
+std::vector<Vertex> s1 = createQuad(0, 0, 0.25, 0.25);
 
-    {{.8f, .9f, 0.5f}, {1.0f, 0.0f, 0.0f}},
-    {{.8f, .8f, 0.5f}, {1.0f, 0.0f, 0.0f}},
-    {{.9f, .9f, 0.5f}, {1.0f, 0.0f, 0.0f}},
-};
-
-std::vector<Vertex> s2 = {
-    {{.85f, .85f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-    {{.75f, .85f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-    {{.75f, .75f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-
-    {{.85f, .85f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-    {{.75f, .75f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-    {{.85f, .75f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-};
-
-std::vector<std::vector<Vertex>> shapes{s1, s2};
+std::vector<std::vector<Vertex>> shapes{s1};
 
 const std::vector<Vertex> vertices = shapesToVertices(shapes);
 const std::vector<char const *> validationLayers = {
