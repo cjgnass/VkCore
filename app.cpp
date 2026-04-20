@@ -1,4 +1,5 @@
 #include "app.hpp"
+#include "GLFW/glfw3.h"
 #include "utils.hpp"
 #include <chrono>
 #include <cstring>
@@ -92,6 +93,7 @@ void App::mainLoop()
   while (!glfwWindowShouldClose(window))
   {
     glfwPollEvents();
+    processInput();
     drawFrame();
   }
   device.waitIdle();
@@ -566,7 +568,7 @@ void App::createRenderPass()
 }
 void App::createGraphicsPipeline()
 {
-  auto shaderCode = readFile("../shaders/slang.spv");
+  auto shaderCode = readFile("./shaders/slang.spv");
   vk::raii::ShaderModule shaderModule = createShaderModule(shaderCode);
   vk::PipelineShaderStageCreateInfo vertShaderStageInfo{};
   vertShaderStageInfo.stage = vk::ShaderStageFlagBits::eVertex;
@@ -838,22 +840,47 @@ void App::createDescriptorSet()
   device.updateDescriptorSets(descriptorWrite, nullptr);
 }
 
+void App::processInput()
+{
+  float now = static_cast<float>(glfwGetTime());
+  float dt = now - lastFrameTime;
+  lastFrameTime = now;
+
+  float speed = 2.5f * dt;
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    cameraPos += speed * cameraFront;
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    cameraPos -= speed * cameraFront;
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * speed;
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * speed;
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    cameraPos += speed * cameraUp;
+  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+    cameraPos -= speed * cameraUp;
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+}
+
 void App::updateUniformBuffer()
 {
-  float t = static_cast<float>(glfwGetTime());
+  // float t = static_cast<float>(glfwGetTime());
   UniformBufferObject ubo{};
 
   // ubo.model = glm::mat4(1.0f);
-  ubo.model = glm::mat4(1.0f);
+  ubo.model = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
+                        0.0f, 1.0f, 0.0f, 0.0f, 
+                        0.0f, 0.0f, 1.0f, 0.0f, 
+                        0.0f, 0.0f, 0.0f, 1.0f);
 
   // ubo.view = glm::mat4(1.0f);
-  ubo.view = glm::lookAt(
-      glm::vec3(0.0f, 0.0f, -1.0f),
-      glm::vec3(0.0f, 0.0f, 0.0f),
-      glm::vec3(0.0f, 1.0f, 0.0f));
+  ubo.view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
   // ubo.proj = glm::mat4(1.0f);
-  float aspect = static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);
+  float aspect = static_cast<float>(swapChainExtent.width) /
+                 static_cast<float>(swapChainExtent.height);
   ubo.proj = glm::perspective(glm::radians(45.0f), aspect, 0.01f, 100.0f);
 
   ubo.proj[1][1] *= -1;

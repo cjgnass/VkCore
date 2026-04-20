@@ -82,6 +82,7 @@ private:
 
     void drawFrame();
     void updateUniformBuffer();
+    void processInput();
 
     void recordCommandBuffer(uint32_t imageIndex);
     void createBuffer(vk::DeviceSize size, vk::BufferUsageFlags usage, vk::MemoryPropertyFlags properties,
@@ -132,4 +133,9 @@ private:
     vk::raii::Semaphore renderFinishedSemaphore = nullptr;
     vk::raii::Fence drawFence = nullptr;
     std::vector<const char *> requiredDeviceExtension = {vk::KHRSwapchainExtensionName};
+
+    glm::vec3 cameraPos{0.0f, 0.0f, -1.0f};
+    glm::vec3 cameraFront{0.0f, 0.0f, 1.0f};
+    glm::vec3 cameraUp{0.0f, 1.0f, 0.0f};
+    float lastFrameTime{0.0f};
 };
