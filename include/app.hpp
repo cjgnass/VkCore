@@ -2,6 +2,7 @@
 #include "vulkan/vulkan.hpp"
 #include "GLFW/glfw3.h"
 #include "vulkan/vulkan_raii.hpp"
+#include <glm/ext/matrix_transform.hpp>
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -12,12 +13,21 @@
 #include <string>
 #include <array>
 
+const glm::vec3 WHITE{1.0f, 1.0f, 1.0f};
+const glm::vec3 RED{1.0f, 0.0f, 0.0f};
+const glm::vec3 GREEN{0.0f, 1.0f, 0.0f};
+const glm::vec3 BLUE{0.0f, 0.0f, 1.0f};
+
+
+
+
 struct UniformBufferObject
 {
     glm::mat4 model;
     glm::mat4 view;
     glm::mat4 proj;
 };
+
 
 struct Vertex
 {
@@ -134,8 +144,10 @@ private:
     vk::raii::Fence drawFence = nullptr;
     std::vector<const char *> requiredDeviceExtension = {vk::KHRSwapchainExtensionName};
 
-    glm::vec3 cameraPos{0.0f, 0.0f, -1.0f};
-    glm::vec3 cameraFront{0.0f, 0.0f, 1.0f};
-    glm::vec3 cameraUp{0.0f, 1.0f, 0.0f};
+    glm::vec3 cameraPos{0.0f, -1.0f, 0.0f};
+    glm::vec3 cameraFront{0.0f, 1.0f, 0.0f};
+    glm::vec3 cameraUp{0.0f, 0.0f, 1.0f};
+    float yaw{glm::radians(90.0f)};
+    float pitch{0.0f};
     float lastFrameTime{0.0f};
 };

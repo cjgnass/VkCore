@@ -2,7 +2,6 @@
 #include <vector>
 #include "app.hpp"
 
-const glm::vec3 WHITE{1.0f, 1.0f, 1.0f};
 
 inline std::vector<Vertex> shapesToVertices(std::vector<std::vector<Vertex>> shapes)
 {
@@ -17,18 +16,18 @@ inline std::vector<Vertex> shapesToVertices(std::vector<std::vector<Vertex>> sha
     return vertices;
 }
 
-inline std::vector<Vertex> createQuad(float x, float y, float w, float h)
+inline std::vector<Vertex> createQuad(float x, float y, float w, float h, glm::vec3 color)
 {
     float wd2 = w / 2;
     float hd2 = h / 2;
 
     return {
-        {{x + wd2, y - hd2, 0.0f}, WHITE},
-        {{x - wd2, y - hd2, 0.0f}, WHITE},
-        {{x - wd2, y + hd2, 0.0f}, WHITE},
+        {{x + wd2, 0.0f, y - hd2}, color}, 
+        {{x - wd2, 0.0f, y - hd2}, color},
+        {{x - wd2, 0.0f, y + hd2}, color},
 
-        {{x - wd2, y + hd2, 0.0f}, WHITE},
-        {{x + wd2, y + hd2, 0.0f}, WHITE},
-        {{x + wd2, y - hd2, 0.0f}, WHITE},
+        {{x - wd2, 0.0f, y + hd2}, color},
+        {{x + wd2, 0.0f, y + hd2}, color},
+        {{x + wd2, 0.0f, y - hd2}, color},
     };
 }

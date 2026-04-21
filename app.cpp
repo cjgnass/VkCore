@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cstring>
 #include <fstream>
+#include <glm/geometric.hpp>
 #include <iostream>
 #include <map>
 #include <ranges>
@@ -12,7 +13,7 @@
 constexpr uint32_t WIDTH = 1280;
 constexpr uint32_t HEIGHT = 720;
 
-std::vector<Vertex> s1 = createQuad(0, 0, 0.25, 0.25);
+std::vector<Vertex> s1 = createQuad(0, 0, 0.25, 0.25, WHITE);
 
 std::vector<std::vector<Vertex>> shapes{s1};
 
@@ -845,37 +846,49 @@ void App::processInput()
   float now = static_cast<float>(glfwGetTime());
   float dt = now - lastFrameTime;
   lastFrameTime = now;
-
   float speed = 2.5f * dt;
+
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     cameraPos += speed * cameraFront;
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     cameraPos -= speed * cameraFront;
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * speed;
+    cameraPos -= speed * glm::normalize(glm::cross(cameraFront, cameraUp));
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * speed;
+    cameraPos += speed * glm::normalize(glm::cross(cameraFront, cameraUp));
   if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     cameraPos += speed * cameraUp;
   if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
     cameraPos -= speed * cameraUp;
+
+  float lookSpeed = 1.5f * dt;
+  if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+    yaw += lookSpeed;
+  if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+    yaw -= lookSpeed;
+  if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+    pitch += lookSpeed;
+  if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+    pitch -= lookSpeed;
+  pitch = glm::clamp(pitch, glm::radians(-89.0f), glm::radians(89.0f));
+  cameraFront = glm::normalize(glm::vec3{
+      glm::cos(pitch) * glm::cos(yaw),
+      glm::cos(pitch) * glm::sin(yaw),
+      glm::sin(pitch)
+  });
+
+
+
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, GLFW_TRUE);
-
 }
 
 void App::updateUniformBuffer()
 {
-  // float t = static_cast<float>(glfwGetTime());
+  float t = static_cast<float>(glfwGetTime());
   UniformBufferObject ubo{};
 
-  // ubo.model = glm::mat4(1.0f);
-  ubo.model = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
-                        0.0f, 1.0f, 0.0f, 0.0f, 
-                        0.0f, 0.0f, 1.0f, 0.0f, 
-                        0.0f, 0.0f, 0.0f, 1.0f);
-
-  // ubo.view = glm::mat4(1.0f);
+  ubo.model = glm::mat4(1.0f);
   ubo.view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
   // ubo.proj = glm::mat4(1.0f);
