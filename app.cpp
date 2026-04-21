@@ -64,6 +64,7 @@ void App::initWindow()
   glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
   glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
   window = glfwCreateWindow(WIDTH, HEIGHT, "VkCore", nullptr, nullptr);
+  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void App::initVulkan()
@@ -861,16 +862,14 @@ void App::processInput()
   if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
     cameraPos -= speed * cameraUp;
 
-  float lookSpeed = 1.5f * dt;
-  if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-    yaw += lookSpeed;
-  if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-    yaw -= lookSpeed;
-  if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-    pitch += lookSpeed;
-  if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-    pitch -= lookSpeed;
-  pitch = glm::clamp(pitch, glm::radians(-89.0f), glm::radians(89.0f));
+  double mouseX, mouseY;
+  glfwGetCursorPos(window, &mouseX, &mouseY);
+  float sensitivity = 0.001f;
+  yaw -= static_cast<float>(mouseX - lastMouseX) * sensitivity;
+  pitch -= static_cast<float>(mouseY - lastMouseY) * sensitivity;
+  lastMouseX = mouseX;
+  lastMouseY = mouseY;
+  // pitch = glm::clamp(pitch, glm::radians(-89.0f), glm::radians(89.0f));
   cameraFront = glm::normalize(glm::vec3{
       glm::cos(pitch) * glm::cos(yaw),
       glm::cos(pitch) * glm::sin(yaw),

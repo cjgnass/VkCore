@@ -150,4 +150,6 @@ private:
     float yaw{glm::radians(90.0f)};
     float pitch{0.0f};
     float lastFrameTime{0.0f};
+    double lastMouseX{0.0};
+    double lastMouseY{0.0};
 };
