@@ -8,7 +8,7 @@ const glm::vec3 BLUE{0.0f, 0.0f, 1.0f};
 
 struct Thing {
   Thing();
-  Thing(glm::vec3 color, glm::mat4 modelMatrix);
+  Thing(glm::vec3 color, glm::mat4 modelMatrix, int i);
 
   std::vector<Vertex> vertices;
   glm::mat4 model;

@@ -672,13 +672,15 @@ void App::recordCommandBuffer(uint32_t imageIndex) {
   //   commandBuffer.draw(static_cast<uint32_t>(vertices.size()), 1, 0, 0);
   // }
 
-  for (auto &t : objects) { 
+  for (auto &t : objects) {
     uint32_t offset = t->index * slotSize;
     commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                      *pipelineLayout, 0, *descriptorSet,
                                      {offset});
-    commandBuffer.bindVertexBuffers(0, vertexBuffers, {offset});
-    commandBuffer.draw(static_cast<uint32_t>(t->vertices.size()), 1, 0, 0);
+    commandBuffer.bindVertexBuffers(0, vertexBuffers, {0ULL});
+    uint32_t vCount = t->vertices.size();
+    uint32_t vIndex = t->index;
+    commandBuffer.draw(vCount, 1, vCount * vIndex, 0);
   }
 
   commandBuffer.endRenderPass();
@@ -836,25 +838,43 @@ void App::processInput() {
 }
 
 void App::updateUniformBuffer() {
+  float t = static_cast<float>(glfwGetTime());
   for (int i = 0; i < numberOfObjects; i++) {
     UniformBufferObject ubo{};
-    ubo.model = modelMatrices[i];
+    if (i == 0) {
+      ubo.model = glm::rotate(modelMatrices[i], t, glm::vec3(0.0f, 0.0f, 1.0f));
+    } else {
+      ubo.model = modelMatrices[i];
+    }
     ubo.view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
     float aspect = static_cast<float>(swapChainExtent.width) /
                    static_cast<float>(swapChainExtent.height);
     ubo.proj = glm::perspective(glm::radians(45.0f), aspect, 0.01f, 100.0f);
     ubo.proj[1][1] *= -1;
-    char* dst = static_cast<char*>(uniformBufferMapped) + i * slotSize;
+    char *dst = static_cast<char *>(uniformBufferMapped) + i * slotSize;
     std::memcpy(dst, &ubo, sizeof(ubo));
   }
 }
 
-void App::createObjects() { 
-  auto thing = std::make_unique<Thing>();
-  objects.push_back(std::move(thing));
-  modelMatrices.push_back(glm::mat4(1.0f));
-  numberOfObjects = 1;
-  for (auto &v : objects[0]->vertices) { 
-    vertices.push_back(v);
+void App::createObjects() {
+  Thing thing1(WHITE,
+               glm::mat4(1.0f, 0.0f, 0.0f, 0.0, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                         0.0f, 1.0f, 0.0f, -0.5f, 0.0f, 0.0f, 1.0f),
+               0);
+  Thing thing2(RED,
+               glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+                         0.0f, 1.0f, 0.0f, 0.5f, 0.0f, 0.0f, 1.0f),
+               1);
+  auto t1 = std::make_unique<Thing>(thing1);
+  auto t2 = std::make_unique<Thing>(thing2);
+  modelMatrices.push_back(t1->model);
+  modelMatrices.push_back(t2->model);
+  objects.push_back(std::move(t1));
+  objects.push_back(std::move(t2));
+  numberOfObjects = 2;
+  for (int i = 0; i < numberOfObjects; i++) {
+    for (auto &v : objects[i]->vertices) {
+      vertices.push_back(v);
+    }
   }
 }
