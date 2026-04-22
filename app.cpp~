@@ -55,7 +55,6 @@ void App::initWindow() {
 }
 
 void App::initVulkan() {
-  createObjects();
   createInstance();
   setupDebugMessenger();
   createSurface();
@@ -663,22 +662,13 @@ void App::recordCommandBuffer(uint32_t imageIndex) {
 
   vk::Buffer vertexBuffers[] = {*vertexBuffer};
 
-  // for (int i = 0; i < numberOfObjects; i++) {
-  //   uint32_t offset = i * slotSize;
-  //   commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
-  //                                    *pipelineLayout, 0, *descriptorSet,
-  //                                    {offset});
-  //   commandBuffer.bindVertexBuffers(0, vertexBuffers, {offset});
-  //   commandBuffer.draw(static_cast<uint32_t>(vertices.size()), 1, 0, 0);
-  // }
-
-  for (auto &t : objects) { 
-    uint32_t offset = t->index * slotSize;
+  for (int i = 0; i < numberOfObjects; i++) {
+    uint32_t offset = i * slotSize;
     commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
                                      *pipelineLayout, 0, *descriptorSet,
                                      {offset});
     commandBuffer.bindVertexBuffers(0, vertexBuffers, {offset});
-    commandBuffer.draw(static_cast<uint32_t>(t->vertices.size()), 1, 0, 0);
+    commandBuffer.draw(static_cast<uint32_t>(vertices.size()), 1, 0, 0);
   }
 
   commandBuffer.endRenderPass();
@@ -854,7 +844,4 @@ void App::createObjects() {
   objects.push_back(std::move(thing));
   modelMatrices.push_back(glm::mat4(1.0f));
   numberOfObjects = 1;
-  for (auto &v : objects[0]->vertices) { 
-    vertices.push_back(v);
-  }
 }

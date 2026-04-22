@@ -1,33 +1,47 @@
 #pragma once
+#include "vulkan/vulkan.hpp"
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/matrix_transform.hpp>
+
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <vector>
-#include "app.hpp"
+
+struct UniformBufferObject { 
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 proj;
+};
 
 
-inline std::vector<Vertex> shapesToVertices(std::vector<std::vector<Vertex>> shapes)
+struct Vertex
 {
-    std::vector<Vertex> vertices{};
-    for (auto &shape : shapes)
+    glm::vec3 pos;
+    glm::vec3 color;
+
+    static vk::VertexInputBindingDescription getBindingDescription()
     {
-        for (auto &v : shape)
-        {
-            vertices.push_back(v);
-        }
+        vk::VertexInputBindingDescription binding{};
+        binding.binding = 0;
+        binding.stride = sizeof(Vertex);
+        binding.inputRate = vk::VertexInputRate::eVertex;
+        return binding;
     }
-    return vertices;
-}
 
-inline std::vector<Vertex> createQuad(float x, float y, float w, float h, glm::vec3 color)
-{
-    float wd2 = w / 2;
-    float hd2 = h / 2;
+    static std::array<vk::VertexInputAttributeDescription, 2> getAttributeDescriptions()
+    {
+        std::array<vk::VertexInputAttributeDescription, 2> attrs{};
+        attrs[0].binding = 0;
+        attrs[0].location = 0;
+        attrs[0].format = vk::Format::eR32G32B32Sfloat;
+        attrs[0].offset = offsetof(Vertex, pos);
 
-    return {
-        {{x + wd2, 0.0f, y - hd2}, color}, 
-        {{x - wd2, 0.0f, y - hd2}, color},
-        {{x - wd2, 0.0f, y + hd2}, color},
-
-        {{x - wd2, 0.0f, y + hd2}, color},
-        {{x + wd2, 0.0f, y + hd2}, color},
-        {{x + wd2, 0.0f, y - hd2}, color},
-    };
-}
+        attrs[1].binding = 0;
+        attrs[1].location = 1;
+        attrs[1].format = vk::Format::eR32G32B32Sfloat;
+        attrs[1].offset = offsetof(Vertex, color);
+        return attrs;
+    }
+};

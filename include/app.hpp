@@ -1,63 +1,14 @@
 #pragma once
-#include "vulkan/vulkan.hpp"
+#include "utils.hpp"
 #include "GLFW/glfw3.h"
 #include "vulkan/vulkan_raii.hpp"
-#include <glm/ext/matrix_transform.hpp>
-
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
 #include <string>
-#include <array>
-
-const glm::vec3 WHITE{1.0f, 1.0f, 1.0f};
-const glm::vec3 RED{1.0f, 0.0f, 0.0f};
-const glm::vec3 GREEN{0.0f, 1.0f, 0.0f};
-const glm::vec3 BLUE{0.0f, 0.0f, 1.0f};
+#include "thing.hpp"
 
 
 
-
-struct UniformBufferObject
-{
-    glm::mat4 model;
-    glm::mat4 view;
-    glm::mat4 proj;
-};
-
-
-struct Vertex
-{
-    glm::vec3 pos;
-    glm::vec3 color;
-
-    static vk::VertexInputBindingDescription getBindingDescription()
-    {
-        vk::VertexInputBindingDescription binding{};
-        binding.binding = 0;
-        binding.stride = sizeof(Vertex);
-        binding.inputRate = vk::VertexInputRate::eVertex;
-        return binding;
-    }
-
-    static std::array<vk::VertexInputAttributeDescription, 2> getAttributeDescriptions()
-    {
-        std::array<vk::VertexInputAttributeDescription, 2> attrs{};
-        attrs[0].binding = 0;
-        attrs[0].location = 0;
-        attrs[0].format = vk::Format::eR32G32B32Sfloat;
-        attrs[0].offset = offsetof(Vertex, pos);
-
-        attrs[1].binding = 0;
-        attrs[1].location = 1;
-        attrs[1].format = vk::Format::eR32G32B32Sfloat;
-        attrs[1].offset = offsetof(Vertex, color);
-        return attrs;
-    }
-};
 
 class App
 {
@@ -93,6 +44,7 @@ private:
     void drawFrame();
     void updateUniformBuffer();
     void processInput();
+    void createObjects();
 
     void recordCommandBuffer(uint32_t imageIndex);
     void createBuffer(vk::DeviceSize size, vk::BufferUsageFlags usage, vk::MemoryPropertyFlags properties,
@@ -146,7 +98,10 @@ private:
     vk::DeviceSize slotSize;
 
     int numberOfObjects;
-    std::vector<glm::mat4> objectTransformations{};
+    std::vector<std::unique_ptr<Thing>> objects;
+    std::vector<glm::mat4> modelMatrices{};
+
+    std::vector<Vertex> vertices;
 
     glm::vec3 cameraPos{0.0f, -1.0f, 0.0f};
     glm::vec3 cameraFront{0.0f, 1.0f, 0.0f};
