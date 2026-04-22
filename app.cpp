@@ -27,13 +27,11 @@ constexpr bool enableValidationLayers = false;
 constexpr bool enableValidationLayers = true;
 #endif
 
-std::vector<const char *> App::getRequiredInstanceExtensions()
-{
+std::vector<const char *> App::getRequiredInstanceExtensions() {
   uint32_t glfwExtensionCount = 0;
   auto glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
   std::vector extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
-  if (enableValidationLayers)
-  {
+  if (enableValidationLayers) {
     extensions.push_back(vk::EXTDebugUtilsExtensionName);
   }
   return extensions;
@@ -43,23 +41,20 @@ VKAPI_ATTR vk::Bool32 VKAPI_CALL
 App::debugCallback(vk::DebugUtilsMessageSeverityFlagBitsEXT severity,
                    vk::DebugUtilsMessageTypeFlagsEXT type,
                    const vk::DebugUtilsMessengerCallbackDataEXT *pCallbackData,
-                   void *pUserData)
-{
+                   void *pUserData) {
   std::cerr << "validation layer: type " << to_string(type)
             << " msg: " << pCallbackData->pMessage << std::endl;
   return vk::False;
 }
 
-void App::run()
-{
+void App::run() {
   initWindow();
   initVulkan();
   mainLoop();
   cleanup();
 }
 
-void App::initWindow()
-{
+void App::initWindow() {
   glfwInit();
   glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
   glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
@@ -67,8 +62,9 @@ void App::initWindow()
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
-void App::initVulkan()
-{
+void App::initVulkan() {
+  numberOfObjects = 1;
+  objectTransformations.push_back(glm::mat4(1.0f));
   createInstance();
   setupDebugMessenger();
   createSurface();
@@ -90,10 +86,8 @@ void App::initVulkan()
   createSyncObjects();
 }
 
-void App::mainLoop()
-{
-  while (!glfwWindowShouldClose(window))
-  {
+void App::mainLoop() {
+  while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
     processInput();
     drawFrame();
@@ -101,17 +95,14 @@ void App::mainLoop()
   device.waitIdle();
 }
 
-void App::cleanup()
-{
+void App::cleanup() {
   glfwDestroyWindow(window);
   glfwTerminate();
 }
 
-void App::drawFrame()
-{
+void App::drawFrame() {
   auto fenceResult = device.waitForFences(*drawFence, vk::True, UINT64_MAX);
-  if (fenceResult != vk::Result::eSuccess)
-  {
+  if (fenceResult != vk::Result::eSuccess) {
     throw std::runtime_error("failed to wait for fence!");
   }
   device.resetFences(*drawFence);
@@ -145,8 +136,7 @@ void App::drawFrame()
   presentInfoKHR.pSwapchains = &*swapChain;
   presentInfoKHR.pImageIndices = &imageIndex;
   result = queue.presentKHR(presentInfoKHR);
-  switch (result)
-  {
+  switch (result) {
   case vk::Result::eSuccess:
     break;
   case vk::Result::eSuboptimalKHR:
@@ -158,8 +148,7 @@ void App::drawFrame()
   }
 }
 
-void App::setupDebugMessenger()
-{
+void App::setupDebugMessenger() {
   if (!enableValidationLayers)
     return;
 
@@ -178,8 +167,7 @@ void App::setupDebugMessenger()
       instance.createDebugUtilsMessengerEXT(debugUtilsMessengerCreateInfoEXT);
 }
 
-void App::createInstance()
-{
+void App::createInstance() {
   vk::ApplicationInfo appInfo{};
   appInfo.pApplicationName = "Hello Triangle";
   appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
@@ -187,20 +175,20 @@ void App::createInstance()
   appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
   appInfo.apiVersion = vk::ApiVersion12;
   std::vector<char const *> requiredLayers;
-  if (enableValidationLayers)
-  {
+  if (enableValidationLayers) {
     requiredLayers.assign(validationLayers.begin(), validationLayers.end());
   }
 
   // Check if the required layers are supported by the Vulkan implementation.
   auto layerProperties = context.enumerateInstanceLayerProperties();
   auto unsupportedLayerIt = std::ranges::find_if(
-      requiredLayers, [&layerProperties](auto const &requiredLayer)
-      { return std::ranges::none_of(
-            layerProperties, [requiredLayer](auto const &layerProperty)
-            { return strcmp(layerProperty.layerName, requiredLayer) == 0; }); });
-  if (unsupportedLayerIt != requiredLayers.end())
-  {
+      requiredLayers, [&layerProperties](auto const &requiredLayer) {
+        return std::ranges::none_of(
+            layerProperties, [requiredLayer](auto const &layerProperty) {
+              return strcmp(layerProperty.layerName, requiredLayer) == 0;
+            });
+      });
+  if (unsupportedLayerIt != requiredLayers.end()) {
     throw std::runtime_error("Required layer not supported: " +
                              std::string(*unsupportedLayerIt));
   }
@@ -213,18 +201,15 @@ void App::createInstance()
   auto extensionProperties = context.enumerateInstanceExtensionProperties();
   auto unsupportedPropertyIt = std::ranges::find_if(
       requiredExtensions,
-      [&extensionProperties](auto const &requiredExtension)
-      {
+      [&extensionProperties](auto const &requiredExtension) {
         return std::ranges::none_of(
             extensionProperties,
-            [requiredExtension](auto const &extensionProperty)
-            {
+            [requiredExtension](auto const &extensionProperty) {
               return strcmp(extensionProperty.extensionName,
                             requiredExtension) == 0;
             });
       });
-  if (unsupportedPropertyIt != requiredExtensions.end())
-  {
+  if (unsupportedPropertyIt != requiredExtensions.end()) {
     throw std::runtime_error("Required extension not supported: " +
                              std::string(*unsupportedPropertyIt));
   }
@@ -239,22 +224,20 @@ void App::createInstance()
   instance = vk::raii::Instance(context, createInfo);
 }
 
-void App::pickPhysicalDevice()
-{
+void App::pickPhysicalDevice() {
   std::vector<vk::raii::PhysicalDevice> physicalDevices =
       instance.enumeratePhysicalDevices();
   auto const devIter =
-      std::ranges::find_if(physicalDevices, [&](auto const &physicalDevice)
-                           { return isDeviceSuitable(physicalDevice); });
-  if (devIter == physicalDevices.end())
-  {
+      std::ranges::find_if(physicalDevices, [&](auto const &physicalDevice) {
+        return isDeviceSuitable(physicalDevice);
+      });
+  if (devIter == physicalDevices.end()) {
     throw std::runtime_error("failed to find a suitable GPU!");
   }
   physicalDevice = *devIter;
 }
 
-bool App::isDeviceSuitable(vk::raii::PhysicalDevice const &physicalDevice)
-{
+bool App::isDeviceSuitable(vk::raii::PhysicalDevice const &physicalDevice) {
   // Check if the physicalDevice supports the Vulkan 1.3 API version
   auto requiredApiVersion = VK_API_VERSION_1_0;
   auto apiVersion = physicalDevice.getProperties().apiVersion;
@@ -264,20 +247,19 @@ bool App::isDeviceSuitable(vk::raii::PhysicalDevice const &physicalDevice)
   // Check if any of the queue families support graphics operations
   auto queueFamilies = physicalDevice.getQueueFamilyProperties();
   bool supportsGraphics =
-      std::ranges::any_of(queueFamilies, [](auto const &qfp)
-                          { return !!(qfp.queueFlags & vk::QueueFlagBits::eGraphics); });
+      std::ranges::any_of(queueFamilies, [](auto const &qfp) {
+        return !!(qfp.queueFlags & vk::QueueFlagBits::eGraphics);
+      });
 
   // Check if all required physicalDevice extensions are available
   auto availableDeviceExtensions =
       physicalDevice.enumerateDeviceExtensionProperties();
   bool supportsAllRequiredExtensions = std::ranges::all_of(
       requiredDeviceExtension,
-      [&availableDeviceExtensions](auto const &requiredDeviceExtension)
-      {
+      [&availableDeviceExtensions](auto const &requiredDeviceExtension) {
         return std::ranges::any_of(
             availableDeviceExtensions,
-            [requiredDeviceExtension](auto const &availableDeviceExtension)
-            {
+            [requiredDeviceExtension](auto const &availableDeviceExtension) {
               return strcmp(availableDeviceExtension.extensionName,
                             requiredDeviceExtension) == 0;
             });
@@ -298,14 +280,14 @@ bool App::isDeviceSuitable(vk::raii::PhysicalDevice const &physicalDevice)
          supportsAllRequiredExtensions && supportsRequiredFeatures;
 }
 
-void App::createLogicalDevice()
-{
+void App::createLogicalDevice() {
   std::vector<vk::QueueFamilyProperties> queueFamilyProperties =
       physicalDevice.getQueueFamilyProperties();
   auto graphicsQueueFamilyProperty =
-      std::ranges::find_if(queueFamilyProperties, [](auto const &qfp)
-                           { return (qfp.queueFlags & vk::QueueFlagBits::eGraphics) !=
-                                    static_cast<vk::QueueFlags>(0); });
+      std::ranges::find_if(queueFamilyProperties, [](auto const &qfp) {
+        return (qfp.queueFlags & vk::QueueFlagBits::eGraphics) !=
+               static_cast<vk::QueueFlags>(0);
+      });
   assert(graphicsQueueFamilyProperty != queueFamilyProperties.end() &&
          "No graphics queue family found!");
   auto graphicsIndex = static_cast<uint32_t>(std::distance(
@@ -338,18 +320,15 @@ void App::createLogicalDevice()
   queue = vk::raii::Queue(device, graphicsIndex, 0);
 }
 
-void App::createSurface()
-{
+void App::createSurface() {
   VkSurfaceKHR _surface;
-  if (glfwCreateWindowSurface(*instance, window, nullptr, &_surface) != 0)
-  {
+  if (glfwCreateWindowSurface(*instance, window, nullptr, &_surface) != 0) {
     throw std::runtime_error("failed to create window surface!");
   }
   surface = vk::raii::SurfaceKHR(instance, _surface);
 }
 
-void App::createSwapChain()
-{
+void App::createSwapChain() {
   vk::SurfaceCapabilitiesKHR surfaceCapabilities =
       physicalDevice.getSurfaceCapabilitiesKHR(*surface);
   swapChainExtent = chooseSwapExtent(surfaceCapabilities);
@@ -381,11 +360,9 @@ void App::createSwapChain()
 }
 
 vk::Extent2D
-App::chooseSwapExtent(vk::SurfaceCapabilitiesKHR const &capabilities)
-{
+App::chooseSwapExtent(vk::SurfaceCapabilitiesKHR const &capabilities) {
   if (capabilities.currentExtent.width !=
-      std::numeric_limits<uint32_t>::max())
-  {
+      std::numeric_limits<uint32_t>::max()) {
     return capabilities.currentExtent;
   }
   int width, height;
@@ -398,44 +375,40 @@ App::chooseSwapExtent(vk::SurfaceCapabilitiesKHR const &capabilities)
 }
 
 uint32_t App::chooseSwapMinImageCount(
-    vk::SurfaceCapabilitiesKHR const &surfaceCapabilities)
-{
+    vk::SurfaceCapabilitiesKHR const &surfaceCapabilities) {
   auto minImageCount = std::max(3u, surfaceCapabilities.minImageCount);
   if ((0 < surfaceCapabilities.maxImageCount) &&
-      (surfaceCapabilities.maxImageCount < minImageCount))
-  {
+      (surfaceCapabilities.maxImageCount < minImageCount)) {
     minImageCount = surfaceCapabilities.maxImageCount;
   }
   return minImageCount;
 }
 
 vk::SurfaceFormatKHR App::chooseSwapSurfaceFormat(
-    std::vector<vk::SurfaceFormatKHR> const &availableFormats)
-{
+    std::vector<vk::SurfaceFormatKHR> const &availableFormats) {
   assert(!availableFormats.empty());
   const auto formatIt =
-      std::ranges::find_if(availableFormats, [](const auto &format)
-                           { return format.format == vk::Format::eB8G8R8A8Srgb &&
-                                    format.colorSpace == vk::ColorSpaceKHR::eSrgbNonlinear; });
+      std::ranges::find_if(availableFormats, [](const auto &format) {
+        return format.format == vk::Format::eB8G8R8A8Srgb &&
+               format.colorSpace == vk::ColorSpaceKHR::eSrgbNonlinear;
+      });
   return formatIt != availableFormats.end() ? *formatIt : availableFormats[0];
 }
 
 vk::PresentModeKHR App::chooseSwapPresentMode(
-    std::vector<vk::PresentModeKHR> const &availablePresentModes)
-{
-  assert(std::ranges::any_of(availablePresentModes, [](auto presentMode)
-                             { return presentMode == vk::PresentModeKHR::eFifo; }));
+    std::vector<vk::PresentModeKHR> const &availablePresentModes) {
+  assert(std::ranges::any_of(availablePresentModes, [](auto presentMode) {
+    return presentMode == vk::PresentModeKHR::eFifo;
+  }));
   return std::ranges::any_of(availablePresentModes,
-                             [](const vk::PresentModeKHR value)
-                             {
+                             [](const vk::PresentModeKHR value) {
                                return vk::PresentModeKHR::eMailbox == value;
                              })
              ? vk::PresentModeKHR::eMailbox
              : vk::PresentModeKHR::eFifo;
 }
 
-void App::createImageViews()
-{
+void App::createImageViews() {
   assert(swapChainImageViews.empty());
 
   vk::ImageViewCreateInfo imageViewCreateInfo{};
@@ -443,15 +416,13 @@ void App::createImageViews()
   imageViewCreateInfo.format = swapChainSurfaceFormat.format;
   imageViewCreateInfo.subresourceRange = {vk::ImageAspectFlagBits::eColor, 0, 1,
                                           0, 1};
-  for (auto &image : swapChainImages)
-  {
+  for (auto &image : swapChainImages) {
     imageViewCreateInfo.image = image;
     swapChainImageViews.emplace_back(device, imageViewCreateInfo);
   }
 }
 
-void App::createDepthResources()
-{
+void App::createDepthResources() {
   vk::Format depthFormat = vk::Format::eD32Sfloat;
 
   vk::ImageCreateInfo imageInfo{};
@@ -483,12 +454,10 @@ void App::createDepthResources()
   depthImageView = vk::raii::ImageView(device, viewInfo);
 }
 
-std::vector<char> App::readFile(const std::string &filename)
-{
+std::vector<char> App::readFile(const std::string &filename) {
   std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
-  if (!file.is_open())
-  {
+  if (!file.is_open()) {
     throw std::runtime_error("failed to open file!");
   }
   std::vector<char> buffer(file.tellg());
@@ -498,10 +467,8 @@ std::vector<char> App::readFile(const std::string &filename)
   return buffer;
 }
 
-void App::createFrameBuffers()
-{
-  for (auto &view : swapChainImageViews)
-  {
+void App::createFrameBuffers() {
+  for (auto &view : swapChainImageViews) {
     std::array<vk::ImageView, 2> attachments = {*view, *depthImageView};
     vk::FramebufferCreateInfo fbInfo{};
     fbInfo.renderPass = *renderPass;
@@ -514,8 +481,7 @@ void App::createFrameBuffers()
   }
 }
 
-void App::createRenderPass()
-{
+void App::createRenderPass() {
   vk::AttachmentDescription colorAttachment{};
   colorAttachment.format = swapChainSurfaceFormat.format;
   colorAttachment.samples = vk::SampleCountFlagBits::e1;
@@ -568,8 +534,7 @@ void App::createRenderPass()
   info.pDependencies = &dep;
   renderPass = vk::raii::RenderPass(device, info);
 }
-void App::createGraphicsPipeline()
-{
+void App::createGraphicsPipeline() {
   auto shaderCode = readFile("./shaders/slang.spv");
   vk::raii::ShaderModule shaderModule = createShaderModule(shaderCode);
   vk::PipelineShaderStageCreateInfo vertShaderStageInfo{};
@@ -657,8 +622,7 @@ void App::createGraphicsPipeline()
 }
 
 vk::raii::ShaderModule
-App::createShaderModule(const std::vector<char> &code) const
-{
+App::createShaderModule(const std::vector<char> &code) const {
   vk::ShaderModuleCreateInfo createInfo{};
   createInfo.codeSize = code.size() * sizeof(char);
   createInfo.pCode = reinterpret_cast<const uint32_t *>(code.data());
@@ -666,16 +630,14 @@ App::createShaderModule(const std::vector<char> &code) const
   return shaderModule;
 }
 
-void App::createCommandPool()
-{
+void App::createCommandPool() {
   vk::CommandPoolCreateInfo poolInfo{};
   poolInfo.flags = vk::CommandPoolCreateFlagBits::eResetCommandBuffer;
   poolInfo.queueFamilyIndex = queueIndex;
   commandPool = vk::raii::CommandPool(device, poolInfo);
 }
 
-void App::createCommandBuffer()
-{
+void App::createCommandBuffer() {
   vk::CommandBufferAllocateInfo allocInfo{};
   allocInfo.commandPool = commandPool;
   allocInfo.level = vk::CommandBufferLevel::ePrimary;
@@ -684,8 +646,7 @@ void App::createCommandBuffer()
       std::move(vk::raii::CommandBuffers(device, allocInfo).front());
 }
 
-void App::recordCommandBuffer(uint32_t imageIndex)
-{
+void App::recordCommandBuffer(uint32_t imageIndex) {
   commandBuffer.begin({});
 
   std::array<vk::ClearValue, 2> clearValues{};
@@ -708,19 +669,23 @@ void App::recordCommandBuffer(uint32_t imageIndex)
       0, vk::Viewport(0.0f, 0.0f, static_cast<float>(swapChainExtent.width),
                       static_cast<float>(swapChainExtent.height), 0.0f, 1.0f));
   commandBuffer.setScissor(0, vk::Rect2D(vk::Offset2D(0, 0), swapChainExtent));
-  commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
-                                   *pipelineLayout, 0, *descriptorSet, nullptr);
-  vk::Buffer vertexBuffers[] = {*vertexBuffer};
-  vk::DeviceSize offsets[] = {0};
-  commandBuffer.bindVertexBuffers(0, vertexBuffers, offsets);
-  commandBuffer.draw(static_cast<uint32_t>(vertices.size()), 1, 0, 0);
-  commandBuffer.endRenderPass();
 
+  vk::Buffer vertexBuffers[] = {*vertexBuffer};
+
+  for (int i = 0; i < numberOfObjects; i++) {
+    uint32_t offset = i * slotSize;
+    commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
+                                     *pipelineLayout, 0, *descriptorSet,
+                                     {offset});
+    commandBuffer.bindVertexBuffers(0, vertexBuffers, {offset});
+    commandBuffer.draw(static_cast<uint32_t>(vertices.size()), 1, 0, 0);
+  }
+
+  commandBuffer.endRenderPass();
   commandBuffer.end();
 }
 
-void App::createSyncObjects()
-{
+void App::createSyncObjects() {
   presentCompleteSemaphore =
       vk::raii::Semaphore(device, vk::SemaphoreCreateInfo());
   renderFinishedSemaphore =
@@ -730,11 +695,10 @@ void App::createSyncObjects()
   drawFence = vk::raii::Fence(device, vkFenceCreateInfo);
 }
 
-void App::createDescriptorSetLayout()
-{
+void App::createDescriptorSetLayout() {
   vk::DescriptorSetLayoutBinding uboLayoutBinding{};
   uboLayoutBinding.binding = 0;
-  uboLayoutBinding.descriptorType = vk::DescriptorType::eUniformBuffer;
+  uboLayoutBinding.descriptorType = vk::DescriptorType::eUniformBufferDynamic;
   uboLayoutBinding.descriptorCount = 1;
   uboLayoutBinding.stageFlags = vk::ShaderStageFlagBits::eVertex;
 
@@ -745,15 +709,12 @@ void App::createDescriptorSetLayout()
 }
 
 uint32_t App::findMemoryType(uint32_t typeFilter,
-                             vk::MemoryPropertyFlags properties) const
-{
+                             vk::MemoryPropertyFlags properties) const {
   auto memProperties = physicalDevice.getMemoryProperties();
-  for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i)
-  {
+  for (uint32_t i = 0; i < memProperties.memoryTypeCount; ++i) {
     if ((typeFilter & (1u << i)) &&
         (memProperties.memoryTypes[i].propertyFlags & properties) ==
-            properties)
-    {
+            properties) {
       return i;
     }
   }
@@ -763,8 +724,7 @@ uint32_t App::findMemoryType(uint32_t typeFilter,
 void App::createBuffer(vk::DeviceSize size, vk::BufferUsageFlags usage,
                        vk::MemoryPropertyFlags properties,
                        vk::raii::Buffer &buffer,
-                       vk::raii::DeviceMemory &bufferMemory)
-{
+                       vk::raii::DeviceMemory &bufferMemory) {
   vk::BufferCreateInfo bufferInfo{};
   bufferInfo.size = size;
   bufferInfo.usage = usage;
@@ -781,9 +741,11 @@ void App::createBuffer(vk::DeviceSize size, vk::BufferUsageFlags usage,
   buffer.bindMemory(*bufferMemory, 0);
 }
 
-void App::createUniformBuffer()
-{
-  vk::DeviceSize bufferSize = sizeof(UniformBufferObject);
+void App::createUniformBuffer() {
+  vk::DeviceSize alignment =
+      physicalDevice.getProperties().limits.minUniformBufferOffsetAlignment;
+  slotSize = (sizeof(UniformBufferObject) + alignment - 1) & ~(alignment - 1);
+  vk::DeviceSize bufferSize = slotSize * numberOfObjects;
   createBuffer(bufferSize, vk::BufferUsageFlagBits::eUniformBuffer,
                vk::MemoryPropertyFlagBits::eHostVisible |
                    vk::MemoryPropertyFlagBits::eHostCoherent,
@@ -791,8 +753,7 @@ void App::createUniformBuffer()
   uniformBufferMapped = uniformBufferMemory.mapMemory(0, bufferSize);
 }
 
-void App::createVertexBuffer()
-{
+void App::createVertexBuffer() {
   vk::DeviceSize bufferSize = sizeof(vertices[0]) * vertices.size();
   createBuffer(bufferSize, vk::BufferUsageFlagBits::eVertexBuffer,
                vk::MemoryPropertyFlagBits::eHostVisible |
@@ -803,10 +764,9 @@ void App::createVertexBuffer()
   vertexBufferMemory.unmapMemory();
 }
 
-void App::createDescriptorPool()
-{
+void App::createDescriptorPool() {
   vk::DescriptorPoolSize poolSize{};
-  poolSize.type = vk::DescriptorType::eUniformBuffer;
+  poolSize.type = vk::DescriptorType::eUniformBufferDynamic;
   poolSize.descriptorCount = 1;
 
   vk::DescriptorPoolCreateInfo poolInfo{};
@@ -817,8 +777,7 @@ void App::createDescriptorPool()
   descriptorPool = vk::raii::DescriptorPool(device, poolInfo);
 }
 
-void App::createDescriptorSet()
-{
+void App::createDescriptorSet() {
   vk::DescriptorSetLayout layouts[] = {*descriptorSetLayout};
   vk::DescriptorSetAllocateInfo allocInfo{};
   allocInfo.descriptorPool = *descriptorPool;
@@ -830,20 +789,19 @@ void App::createDescriptorSet()
   vk::DescriptorBufferInfo bufferInfo{};
   bufferInfo.buffer = *uniformBuffer;
   bufferInfo.offset = 0;
-  bufferInfo.range = sizeof(UniformBufferObject);
+  bufferInfo.range = slotSize;
 
   vk::WriteDescriptorSet descriptorWrite{};
   descriptorWrite.dstSet = *descriptorSet;
   descriptorWrite.dstBinding = 0;
   descriptorWrite.dstArrayElement = 0;
-  descriptorWrite.descriptorType = vk::DescriptorType::eUniformBuffer;
+  descriptorWrite.descriptorType = vk::DescriptorType::eUniformBufferDynamic;
   descriptorWrite.descriptorCount = 1;
   descriptorWrite.pBufferInfo = &bufferInfo;
   device.updateDescriptorSets(descriptorWrite, nullptr);
 }
 
-void App::processInput()
-{
+void App::processInput() {
   float now = static_cast<float>(glfwGetTime());
   float dt = now - lastFrameTime;
   lastFrameTime = now;
@@ -869,32 +827,24 @@ void App::processInput()
   pitch -= static_cast<float>(mouseY - lastMouseY) * sensitivity;
   lastMouseX = mouseX;
   lastMouseY = mouseY;
-  // pitch = glm::clamp(pitch, glm::radians(-89.0f), glm::radians(89.0f));
-  cameraFront = glm::normalize(glm::vec3{
-      glm::cos(pitch) * glm::cos(yaw),
-      glm::cos(pitch) * glm::sin(yaw),
-      glm::sin(pitch)
-  });
-
-
+  cameraFront = glm::normalize(glm::vec3{glm::cos(pitch) * glm::cos(yaw),
+                                         glm::cos(pitch) * glm::sin(yaw),
+                                         glm::sin(pitch)});
 
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
-void App::updateUniformBuffer()
-{
-  float t = static_cast<float>(glfwGetTime());
-  UniformBufferObject ubo{};
-
-  ubo.model = glm::mat4(1.0f);
-  ubo.view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-
-  // ubo.proj = glm::mat4(1.0f);
-  float aspect = static_cast<float>(swapChainExtent.width) /
-                 static_cast<float>(swapChainExtent.height);
-  ubo.proj = glm::perspective(glm::radians(45.0f), aspect, 0.01f, 100.0f);
-
-  ubo.proj[1][1] *= -1;
-  std::memcpy(uniformBufferMapped, &ubo, sizeof(ubo));
+void App::updateUniformBuffer() {
+  for (int i = 0; i < numberOfObjects; i++) {
+    UniformBufferObject ubo{};
+    ubo.model = objectTransformations[i];
+    ubo.view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    float aspect = static_cast<float>(swapChainExtent.width) /
+                   static_cast<float>(swapChainExtent.height);
+    ubo.proj = glm::perspective(glm::radians(45.0f), aspect, 0.01f, 100.0f);
+    ubo.proj[1][1] *= -1;
+    char* dst = static_cast<char*>(uniformBufferMapped) + i * slotSize;
+    std::memcpy(dst, &ubo, sizeof(ubo));
+  }
 }

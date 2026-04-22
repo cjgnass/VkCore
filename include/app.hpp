@@ -143,6 +143,10 @@ private:
     vk::raii::Semaphore renderFinishedSemaphore = nullptr;
     vk::raii::Fence drawFence = nullptr;
     std::vector<const char *> requiredDeviceExtension = {vk::KHRSwapchainExtensionName};
+    vk::DeviceSize slotSize;
+
+    int numberOfObjects;
+    std::vector<glm::mat4> objectTransformations{};
 
     glm::vec3 cameraPos{0.0f, -1.0f, 0.0f};
     glm::vec3 cameraFront{0.0f, 1.0f, 0.0f};
