@@ -99,7 +99,6 @@ private:
 
     int numberOfObjects;
     std::vector<std::unique_ptr<Thing>> objects;
-    std::vector<glm::mat4> modelMatrices{};
 
     std::vector<Vertex> vertices;
 

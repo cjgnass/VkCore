@@ -663,14 +663,6 @@ void App::recordCommandBuffer(uint32_t imageIndex) {
 
   vk::Buffer vertexBuffers[] = {*vertexBuffer};
 
-  // for (int i = 0; i < numberOfObjects; i++) {
-  //   uint32_t offset = i * slotSize;
-  //   commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
-  //                                    *pipelineLayout, 0, *descriptorSet,
-  //                                    {offset});
-  //   commandBuffer.bindVertexBuffers(0, vertexBuffers, {offset});
-  //   commandBuffer.draw(static_cast<uint32_t>(vertices.size()), 1, 0, 0);
-  // }
 
   for (auto &t : objects) {
     uint32_t offset = t->index * slotSize;
@@ -839,19 +831,15 @@ void App::processInput() {
 
 void App::updateUniformBuffer() {
   float t = static_cast<float>(glfwGetTime());
-  for (int i = 0; i < numberOfObjects; i++) {
+  for (auto &obj : objects) {
     UniformBufferObject ubo{};
-    if (i == 0) {
-      ubo.model = glm::rotate(modelMatrices[i], t, glm::vec3(0.0f, 0.0f, 1.0f));
-    } else {
-      ubo.model = modelMatrices[i];
-    }
+    ubo.model = obj->model;
     ubo.view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
     float aspect = static_cast<float>(swapChainExtent.width) /
                    static_cast<float>(swapChainExtent.height);
     ubo.proj = glm::perspective(glm::radians(45.0f), aspect, 0.01f, 100.0f);
     ubo.proj[1][1] *= -1;
-    char *dst = static_cast<char *>(uniformBufferMapped) + i * slotSize;
+    char *dst = static_cast<char *>(uniformBufferMapped) + obj->index * slotSize;
     std::memcpy(dst, &ubo, sizeof(ubo));
   }
 }
@@ -865,13 +853,19 @@ void App::createObjects() {
                glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
                          0.0f, 1.0f, 0.0f, 0.5f, 0.0f, 0.0f, 1.0f),
                1);
+  Thing thing3(BLUE,
+               glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
+                         0.0f, 1.0f, 0.0f, 0.0f, 
+                         0.0f, 0.0f, 1.0f, 0.0f, 
+                         0.0f, 0.0f, 1.0f, 1.0f),
+               2);
   auto t1 = std::make_unique<Thing>(thing1);
   auto t2 = std::make_unique<Thing>(thing2);
-  modelMatrices.push_back(t1->model);
-  modelMatrices.push_back(t2->model);
+  auto t3 = std::make_unique<Thing>(thing3);
   objects.push_back(std::move(t1));
   objects.push_back(std::move(t2));
-  numberOfObjects = 2;
+  objects.push_back(std::move(t3));
+  numberOfObjects = objects.size();
   for (int i = 0; i < numberOfObjects; i++) {
     for (auto &v : objects[i]->vertices) {
       vertices.push_back(v);
