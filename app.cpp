@@ -847,30 +847,14 @@ void App::updateUniformBuffer() {
 }
 
 void App::initGameObjects() {
-  SquareObject thing1(WHITE, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
-                                       0.0f, 1.0f, 0.0f, 0.0f,
-                                       0.0f, 0.0f, 1.0f, 0.0f, 
-                                       -0.5f, 0.0f, 0.0f, 1.0f));
-  SquareObject thing2(RED, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
-                                       0.0f, 1.0f, 0.0f, 0.0f,
-                                       0.0f, 0.0f, 1.0f, 0.0f, 
-                                       0.5f, 0.0f, 0.0f, 1.0f));
-  SquareObject thing3(GREEN, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
-                                       0.0f, 1.0f, 0.0f, 0.0f,
-                                       0.0f, 0.0f, 1.0f, 0.0f, 
-                                       -0.5f, 0.0f, 1.0f, 1.0f));
-  SquareObject thing4(BLUE, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
-                                       0.0f, 1.0f, 0.0f, 0.0f,
-                                       0.0f, 0.0f, 1.0f, 0.0f, 
-                                       0.5f, 0.0f, 1.0f, 1.0f));
+  // CubeObject thing1(WHITE, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
+  //                                      0.0f, 1.0f, 0.0f, 0.0f,
+  //                                      0.0f, 0.0f, 1.0f, 0.0f, 
+  //                                      0.0f, 0.0f, 0.0f, 1.0f));
+  CubeObject thing1{};
   auto t1 = std::make_unique<GameObject>(thing1);
-  auto t2 = std::make_unique<GameObject>(thing2);
-  auto t3 = std::make_unique<GameObject>(thing3);
-  auto t4 = std::make_unique<GameObject>(thing4);
   objects.push_back(std::move(t1));
-  objects.push_back(std::move(t2));
-  objects.push_back(std::move(t3));
-  objects.push_back(std::move(t4));
+
   numberOfObjects = objects.size();
   for (int i = 0; i < numberOfObjects; i++) {
     objects[i]->index = i;
