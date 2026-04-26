@@ -26,7 +26,7 @@ add_custom_target(shaders DEPENDS ${SHADER_OUT})
 
 
 
-add_executable(main main.cpp app.cpp objects/thing.cpp)
+add_executable(main main.cpp app.cpp objects/object.cpp)
 target_link_libraries(main PRIVATE glfw Vulkan::Vulkan)
 target_include_directories(main PRIVATE include)
 add_dependencies(main shaders)

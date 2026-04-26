@@ -1,10 +1,12 @@
 #include "app.hpp"
 #include "GLFW/glfw3.h"
+#include "object.hpp"
 #include "utils.hpp"
 #include <cstring>
 #include <fstream>
 #include <glm/geometric.hpp>
 #include <iostream>
+#include <memory>
 #include <vector>
 
 constexpr uint32_t WIDTH = 1280;
@@ -41,6 +43,7 @@ App::debugCallback(vk::DebugUtilsMessageSeverityFlagBitsEXT severity,
 
 void App::run() {
   initWindow();
+  initGameObjects();
   initVulkan();
   mainLoop();
   cleanup();
@@ -55,7 +58,6 @@ void App::initWindow() {
 }
 
 void App::initVulkan() {
-  createObjects();
   createInstance();
   setupDebugMessenger();
   createSurface();
@@ -663,7 +665,6 @@ void App::recordCommandBuffer(uint32_t imageIndex) {
 
   vk::Buffer vertexBuffers[] = {*vertexBuffer};
 
-
   for (auto &t : objects) {
     uint32_t offset = t->index * slotSize;
     commandBuffer.bindDescriptorSets(vk::PipelineBindPoint::eGraphics,
@@ -839,34 +840,40 @@ void App::updateUniformBuffer() {
                    static_cast<float>(swapChainExtent.height);
     ubo.proj = glm::perspective(glm::radians(45.0f), aspect, 0.01f, 100.0f);
     ubo.proj[1][1] *= -1;
-    char *dst = static_cast<char *>(uniformBufferMapped) + obj->index * slotSize;
+    char *dst =
+        static_cast<char *>(uniformBufferMapped) + obj->index * slotSize;
     std::memcpy(dst, &ubo, sizeof(ubo));
   }
 }
 
-void App::createObjects() {
-  Thing thing1(WHITE,
-               glm::mat4(1.0f, 0.0f, 0.0f, 0.0, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                         0.0f, 1.0f, 0.0f, -0.5f, 0.0f, 0.0f, 1.0f),
-               0);
-  Thing thing2(RED,
-               glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                         0.0f, 1.0f, 0.0f, 0.5f, 0.0f, 0.0f, 1.0f),
-               1);
-  Thing thing3(BLUE,
-               glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
-                         0.0f, 1.0f, 0.0f, 0.0f, 
-                         0.0f, 0.0f, 1.0f, 0.0f, 
-                         0.0f, 0.0f, 1.0f, 1.0f),
-               2);
-  auto t1 = std::make_unique<Thing>(thing1);
-  auto t2 = std::make_unique<Thing>(thing2);
-  auto t3 = std::make_unique<Thing>(thing3);
+void App::initGameObjects() {
+  SquareObject thing1(WHITE, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
+                                       0.0f, 1.0f, 0.0f, 0.0f,
+                                       0.0f, 0.0f, 1.0f, 0.0f, 
+                                       -0.5f, 0.0f, 0.0f, 1.0f));
+  SquareObject thing2(RED, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
+                                       0.0f, 1.0f, 0.0f, 0.0f,
+                                       0.0f, 0.0f, 1.0f, 0.0f, 
+                                       0.5f, 0.0f, 0.0f, 1.0f));
+  SquareObject thing3(GREEN, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
+                                       0.0f, 1.0f, 0.0f, 0.0f,
+                                       0.0f, 0.0f, 1.0f, 0.0f, 
+                                       -0.5f, 0.0f, 1.0f, 1.0f));
+  SquareObject thing4(BLUE, glm::mat4(1.0f, 0.0f, 0.0f, 0.0f, 
+                                       0.0f, 1.0f, 0.0f, 0.0f,
+                                       0.0f, 0.0f, 1.0f, 0.0f, 
+                                       0.5f, 0.0f, 1.0f, 1.0f));
+  auto t1 = std::make_unique<GameObject>(thing1);
+  auto t2 = std::make_unique<GameObject>(thing2);
+  auto t3 = std::make_unique<GameObject>(thing3);
+  auto t4 = std::make_unique<GameObject>(thing4);
   objects.push_back(std::move(t1));
   objects.push_back(std::move(t2));
   objects.push_back(std::move(t3));
+  objects.push_back(std::move(t4));
   numberOfObjects = objects.size();
   for (int i = 0; i < numberOfObjects; i++) {
+    objects[i]->index = i;
     for (auto &v : objects[i]->vertices) {
       vertices.push_back(v);
     }

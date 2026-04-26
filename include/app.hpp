@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <string>
-#include "thing.hpp"
+#include "object.hpp"
 
 
 
@@ -44,7 +44,7 @@ private:
     void drawFrame();
     void updateUniformBuffer();
     void processInput();
-    void createObjects();
+    void initGameObjects();
 
     void recordCommandBuffer(uint32_t imageIndex);
     void createBuffer(vk::DeviceSize size, vk::BufferUsageFlags usage, vk::MemoryPropertyFlags properties,
@@ -98,7 +98,7 @@ private:
     vk::DeviceSize slotSize;
 
     int numberOfObjects;
-    std::vector<std::unique_ptr<Thing>> objects;
+    std::vector<std::unique_ptr<GameObject>> objects;
 
     std::vector<Vertex> vertices;
 
